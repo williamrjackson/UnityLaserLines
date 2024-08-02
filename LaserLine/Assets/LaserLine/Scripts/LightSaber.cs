@@ -22,15 +22,15 @@ public class LightSaber : MonoBehaviour {
     void LateUpdate () {
         transform.position = followTransform.position;
         transform.rotation = followTransform.rotation;
-        line.SetPosition(0, transform.position);
-        line.SetPosition(1, tip.position);
+        line.ControlLine.SetPosition(0, transform.position);
+        line.ControlLine.SetPosition(1, tip.position);
     }
 
     public void SaberOn()
     {
         if (m_AllowSaber)
         { 
-            line.Visible = true;
+            line.ControlLine.enabled = true;
             EnableCollider(true);
             StopAllCoroutines();
             StartCoroutine(OpenSaber());
@@ -55,14 +55,14 @@ public class LightSaber : MonoBehaviour {
     {
         m_Collider.enabled = enable;
         m_Collider.direction = 2;
-        m_Collider.radius = line.width;
+        m_Collider.radius = line.ControlLine.startWidth / 2;
         m_Collider.height = length;
         m_Collider.center = new Vector3(0, 0, length / 2);
     }
 
     private void SaberRetractComplete()
     {
-        line.Visible = false;
+        line.ControlLine.enabled = false;
     }
 
     private IEnumerator OpenSaber()
